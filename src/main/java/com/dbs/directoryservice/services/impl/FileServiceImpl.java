@@ -31,52 +31,45 @@ public class FileServiceImpl implements FileService {
 	private FileServiceProperties fileServiceProperties;
 
 	@Override
-	public PathDTO listFiles(String directoryPath) {
+	public PathDTO listFiles(String directoryPath) throws Exception {
 
 		Path path = Paths.get(directoryPath);
 		final List<FileInfo> children = new ArrayList<FileInfo>();
 		LOGGER.info("Configured max-depth:{}", fileServiceProperties.getMaxDepth());
-		try {
-			Files.walkFileTree(path, EnumSet.noneOf(FileVisitOption.class), fileServiceProperties.getMaxDepth(),
-					new SimpleFileVisitor<Path>() {
+		Files.walkFileTree(path, EnumSet.noneOf(FileVisitOption.class), fileServiceProperties.getMaxDepth(),
+				new SimpleFileVisitor<Path>() {
 
-						@Override
-						public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
-								throws IOException {
-							FileInfo info = FileAttributeMapper.prepareFileInfo(dir, attrs);
-							children.add(info);
-							return FileVisitResult.CONTINUE;
-						}
+					@Override
+					public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+						FileInfo info = FileAttributeMapper.prepareFileInfo(dir, attrs);
+						children.add(info);
+						return FileVisitResult.CONTINUE;
+					}
 
-						@Override
-						public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-							FileInfo info = FileAttributeMapper.prepareFileInfo(file, attrs);
-							children.add(info);
-							return FileVisitResult.CONTINUE;
-						}
+					@Override
+					public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+						FileInfo info = FileAttributeMapper.prepareFileInfo(file, attrs);
+						children.add(info);
+						return FileVisitResult.CONTINUE;
+					}
 
-					});
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+				});
 
 		PathDTO result = new PathDTO();
-		result.setChilds(children);
+		result.setChildren(children);
 		result.setPath(path.toString());
 		return result;
 	}
 
 	@Override
-	public FileInfo getFileInformation(String filePath) {
+	public FileInfo getFileInformation(String filePath) throws Exception {
 
 		Path path = Paths.get(filePath);
 		FileInfo result = null;
-		try {
-			BasicFileAttributes fileAttributes = Files.readAttributes(path, BasicFileAttributes.class);
-			result = FileAttributeMapper.prepareFileInfo(path, fileAttributes);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		BasicFileAttributes fileAttributes = Files.readAttributes(path, BasicFileAttributes.class);
+		result = FileAttributeMapper.prepareFileInfo(path, fileAttributes);
+
 		return result;
 	}
 

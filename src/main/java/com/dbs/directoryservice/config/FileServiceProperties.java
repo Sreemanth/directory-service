@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "file.service")
 public class FileServiceProperties {
 
+	/**
+	 * Maximum depth to be visited by File.walkFileTree. Default value is
+	 * {@code Integer.MAX_VALUE}
+	 */
 	private int maxDepth = Integer.MAX_VALUE;
 
 	public int getMaxDepth() {

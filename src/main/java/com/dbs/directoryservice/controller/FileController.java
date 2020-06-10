@@ -1,7 +1,5 @@
 package com.dbs.directoryservice.controller;
 
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +24,24 @@ public class FileController {
 	}
 
 	@GetMapping("/listFiles")
-	public PathDTO listFiles(@RequestParam("directoryPath") String directoryPath) throws IOException {
-		return fileService.listFiles(directoryPath);
+	public PathDTO listFiles(@RequestParam("directoryPath") String directoryPath) throws Exception {
+		try {
+			return fileService.listFiles(directoryPath);
+		} catch (Exception e) {
+			LOGGER.error("Error occured whiel processing listFiles", e);
+			throw e;
+		}
+
 	}
 
 	@GetMapping("/getFileInformation")
-	public FileInfo getFileInformation(@RequestParam("fileName") String fileName) {
-		return fileService.getFileInformation(fileName);
+	public FileInfo getFileInformation(@RequestParam("fileName") String fileName) throws Exception {
+		try {
+			return fileService.getFileInformation(fileName);
+		} catch (Exception e) {
+			LOGGER.error("Error occured whiel processing getFileInformation", e);
+			throw e;
+		}
+
 	}
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public class PathDTO {
 
 	private String path;
-	private List<FileInfo> childs;
+	private List<FileInfo> children;
 
 	public String getPath() {
 		return path;
@@ -15,12 +15,14 @@ public class PathDTO {
 		this.path = path;
 	}
 
-	public List<FileInfo> getChilds() {
-		return childs;
+	public List<FileInfo> getChildren() {
+		return children;
 	}
 
-	public void setChilds(List<FileInfo> childs) {
-		this.childs = childs;
+	public void setChildren(List<FileInfo> children) {
+		this.children = children;
 	}
+
+	
 
 }
