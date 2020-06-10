@@ -6,6 +6,9 @@ public class FileInfo {
 	private long size;
 	private boolean isDirectory;
 	private boolean isSymbolicLink;
+	private boolean isReadable;
+	private boolean isWritable;
+	private boolean isExecutable;
 
 	public String getName() {
 		return name;
@@ -39,10 +42,28 @@ public class FileInfo {
 		this.isSymbolicLink = isSymbolicLink;
 	}
 
-	@Override
-	public String toString() {
-		return "FileInfo [name=" + name + ", size=" + size + ", isDirectory=" + isDirectory + ", isSymbolicLink="
-				+ isSymbolicLink + "]";
+	public boolean isReadable() {
+		return isReadable;
+	}
+
+	public void setReadable(boolean isReadable) {
+		this.isReadable = isReadable;
+	}
+
+	public boolean isWritable() {
+		return isWritable;
+	}
+
+	public void setWritable(boolean isWritable) {
+		this.isWritable = isWritable;
+	}
+
+	public boolean isExecutable() {
+		return isExecutable;
+	}
+
+	public void setExecutable(boolean isExecutable) {
+		this.isExecutable = isExecutable;
 	}
 
 }
