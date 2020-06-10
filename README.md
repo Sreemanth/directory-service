@@ -25,3 +25,9 @@ mvn clean install -DskipTests=true
 ```sh
 java -jar target/directory-service-0.0.1-SNAPSHOT.jar
 ```
+
+### Assumptions
+
+1. Deployement/Server user has access to underlying file system.
+2. java.policy configuration file should have default permissions.
+
